@@ -13,14 +13,12 @@ warnings.filterwarnings("ignore")
 
 
 
-# Function to get stock price using yfinance
 def get_stock_price(ticker):
     stock = yf.Ticker(ticker)
     price = stock.history(period="1d")["Close"].iloc[-1]
     return price
 
 
-# Function to get historical stock data and calculate moving averages
 def get_historical_data(ticker, period="1mo"):
     stock = yf.Ticker(ticker)
     hist = stock.history(period=period)
@@ -29,7 +27,6 @@ def get_historical_data(ticker, period="1mo"):
     return hist
 
 
-# Function to create a new account
 def create_account(accounts):
     email = input("Enter your email: ")
     if email in accounts:
@@ -53,7 +50,6 @@ def create_account(accounts):
     return email
 
 
-# Function to load accounts from file
 def load_accounts():
     if os.path.exists("accounts.txt"):
         with open("accounts.txt", "r") as file:
@@ -62,13 +58,11 @@ def load_accounts():
         return {}
 
 
-# Function to save accounts to file
 def save_accounts(accounts):
     with open("accounts.txt", "w") as file:
         json.dump(accounts, file)
 
 
-# Function to buy stocks
 def buy_stock(accounts, email, ticker, amount):
     try:
         price = get_stock_price(ticker)
@@ -91,7 +85,6 @@ def buy_stock(accounts, email, ticker, amount):
         return False
 
 
-# Function to sell stocks
 def sell_stock(accounts, email, ticker, amount):
     if ticker in accounts[email]["portfolio"] and accounts[email]["portfolio"][ticker] >= amount:
         try:
@@ -113,7 +106,6 @@ def sell_stock(accounts, email, ticker, amount):
         return False
 
 
-# Function to view portfolio
 def view_portfolio(accounts, email):
     portfolio = accounts[email]["portfolio"]
     balance = accounts[email]["balance"]
@@ -147,7 +139,6 @@ def view_portfolio(accounts, email):
     print(f"Return on Investment (ROI): {roi:.2f}%")
 
 
-# Function to view stock prices
 def view_stock_prices():
     tickers = ["GOOGL", "AAPL", "AMZN", "BCOV", "LMT"]
     stock_data = []
@@ -166,7 +157,6 @@ def view_stock_prices():
     print(tabulate(stock_data, headers=headers, tablefmt="pretty"))
 
 
-# Function to view historical data and moving averages
 def view_historical_data(ticker):
     while True:
         try:
@@ -184,7 +174,7 @@ def view_historical_data(ticker):
         print(f"\nHistorical Data and Moving Averages for {ticker}:")
         print(tabulate(hist_data, headers="keys", tablefmt="pretty"))
 
-        # Plot historical data
+
         fig = px.line(hist_data, x='Date', y=['Close', '20d_ma', '50d_ma'],
                       labels={'value': 'Price', 'variable': 'Indicator'},
                       title=f'Historical Price and Moving Averages for {ticker}')
@@ -196,7 +186,6 @@ def view_historical_data(ticker):
             return
 
 
-# Function to login
 def login(accounts):
     email = input("Enter your email: ")
     password = input("Enter your password: ")
@@ -207,7 +196,6 @@ def login(accounts):
         return None
 
 
-# Main function
 def main():
     accounts = load_accounts()
     email = None
