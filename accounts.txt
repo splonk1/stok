@@ -1,0 +1,1 @@
+"copilotcaleb@gmail.com": {"user_id": "8304", "password": "$2b$12$529BgvuqCItEig.2rBlbADA0rmK", "balance": 10000.0, "portfolio": {}, "history": []}}
